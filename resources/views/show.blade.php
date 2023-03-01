@@ -16,8 +16,13 @@
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-9">
                 <div class="card p-4 mt-3 ">
-                    <h3 class="heading mt-5 text-center font-weight-bold">LACAK PENYAMPAIAN SPPT</h3>
-                    <div class="d-flex justify-content-center px-5">
+                    <div class="text-right">
+                        <button type="submit" class="mt-4 search-icon btn btn-info">
+                            <i class="fa fa-right-to-bracket"></i>
+                        </button>
+                    </div>
+                    <h3 class="heading mt-2 text-center font-weight-bold">LACAK PENYAMPAIAN SPPT</h3>
+                    <div class="d-flex justify-content-center">
                         <div class="search">
                             <form action="" method="post">
                                 @csrf
@@ -26,7 +31,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="row mt-4 g-1 px-4 mb-5">
+                    <div class="row mt-3 g-1 mb-5">
                         <div class="card mb-3 p-3">
                             <div class="p-4 text-center text-white text-lg rounded-top" style="background-color: #435ebe"><span class="">Pencarian NOP <br></span><span class="text-medium"> {{$nop}}</span></div>
                             <div class="card-content">
@@ -36,42 +41,55 @@
                                             <div class="step-icon-wrap">
                                                 <div class="step-icon"><i class="fa-regular fa-file"></i></div>
                                             </div>
-                                            <h4 class="step-title">Proses Cetak</h4>
+                                            <h4 class="step-title my-2">Proses Cetak</h4>
                                         </div>
                                         <div class="step {{ $tracking >= 2 ? 'completed': '' }}">
                                             <div class="step-icon-wrap">
                                                 <div class="step-icon"><i class="fa-solid fa-users-gear"></i></div>
                                             </div>
-                                            <h4 class="step-title">Proses Distribusi</h4>
+                                            <h4 class="step-title my-2">Proses Distribusi</h4>
                                         </div>
                                         <div class="step {{ $tracking >= 3 ? 'completed': '' }}">
                                             <div class="step-icon-wrap">
                                                 <div class="step-icon"><i class="fa-sharp fa-solid fa-truck-fast"></i></div>
                                             </div>
-                                            <h4 class="step-title">Proses Penyampaian</h4>
+                                            <h4 class="step-title my-2">Proses Penyampaian</h4>
                                         </div>
                                         <div class="step {{ $tracking >= 4 ? 'completed': '' }}">
                                             <div class="step-icon-wrap">
                                                 <div class="step-icon"><i class="fa-solid fa-check-to-slot"></i></div>
                                             </div>
-                                            <h4 class="step-title">Status Penyampaian</h4>
+                                            <h4 class="step-title my-2">Status Penyampaian</h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between mt-3 py-3 px-2" style="background-color: #374250">
                                 <div class="col w-100 text-light py-1 px-2">
-                                    <span class="text-medium">Keterangan :</span> <br>
+                                    <span class="text-medium"><b><u>KETERANGAN</u></b></span> <br>
                                     @if($tracking <= 3) <span class="text-medium">Silahkan ambil SPPT ke BAPENDA Kota Pekanbaru</span> <br>
-                                        @endif
+                                    @endif
 
-                                        @foreach($data as $d)
+                                    @foreach($data as $d)
                                         @if($tracking == 4)
-
-                                        <span class="text-medium">Diterima Tanggal :</span> {{ $d->nama_penerima == null ? "Tidak ada" : $d->nama_penerima }} <br>
-                                        <span class="text-medium">Nama Penerima :</span>{{ $d->tgl_penyampaian  }} <br>
+                                        <table>
+                                            <tr>
+                                                <td>Nama Penerima</td>
+                                                <td>:</td>
+                                                <td>   </td>
+                                                <td>{{ $d->nama_penerima == null ? "Tidak ada" : $d->nama_penerima }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Diterima Tanggal</td>
+                                                <td>:</td>
+                                                <td>   </td>
+                                                <td>{{ $d->tgl_penyampaian }}</td>
+                                            </tr>
+                                        </table>
+                                        <!-- <span class="text-medium">Nama Penerima :</span> {{ $d->nama_penerima == null ? "Tidak ada" : $d->nama_penerima }} <br> -->
+                                        <!-- <span class="text-medium">Diterima Tanggal :</span>{{ $d->tgl_penyampaian  }} <br> -->
                                         @endif
-                                        @endforeach
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

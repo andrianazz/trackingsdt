@@ -15,9 +15,14 @@
     <div class="container mt-4 ">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-9">
-                <div class="card p-4 mt-3 ">
-                    <h3 class="heading mt-5 text-center font-weight-bold">LACAK PENYAMPAIAN SPPT</h3>
-                    <div class="d-flex justify-content-center px-5">
+                <div class="card p-4 mt-3">
+                    <div class="text-right">
+                        <button type="submit" class="mt-4 search-icon btn btn-info">
+                            <i class="fa fa-right-to-bracket"></i>
+                        </button>
+                    </div>
+                    <h3 class="heading mt-3 text-center font-weight-bold">LACAK PENYAMPAIAN SPPT</h3>
+                    <div class="d-flex justify-content-center">
                         <div class="search">
                             <form action="/search" method="POST">
                                 @csrf
