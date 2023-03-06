@@ -8,7 +8,7 @@
     <link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
 
 <body class='snippet-body'>
@@ -24,9 +24,9 @@
                     <h3 class="heading mt-2 text-center font-weight-bold">LACAK PENYAMPAIAN SPPT</h3>
                     <div class="d-flex justify-content-center">
                         <div class="search">
-                            <form action="" method="post">
+                            <form action="{{ route('search') }}" method="post">
                                 @csrf
-                                <input type="text" name="search" class="search-input" placeholder="Masukkan Nomor NOP...." name="">
+                                <input id="nop" type="text" name="search" class="search-input" placeholder="Masukkan Nomor NOP...." name="">
                                 <button type="submit" class="search-icon btn btn-info"> <i class="fa fa-search"></i> </button>
                             </form>
                         </div>
@@ -67,29 +67,30 @@
                             <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between mt-3 py-3 px-2" style="background-color: #374250">
                                 <div class="col w-100 text-light py-1 px-2">
                                     <span class="text-medium"><b><u>KETERANGAN</u></b></span> <br>
-                                    @if($tracking <= 3) <span class="text-medium">Silahkan ambil SPPT ke BAPENDA Kota Pekanbaru</span> <br>
-                                    @endif
+                                    @if($data == null) <span class="text-medium">Silahkan Hubungi SPPT ke BAPENDA Kota Pekanbaru</span> <br>
+                                        @endif
 
-                                    @foreach($data as $d)
-                                        @if($tracking == 4)
+                                        
+                                        @if($tracking == 4 && $data != null)
+                                        @foreach($data as $d)
                                         <table>
                                             <tr>
                                                 <td>Nama Penerima</td>
                                                 <td>:</td>
-                                                <td>   </td>
+                                                <td> </td>
                                                 <td>{{ $d->nama_penerima == null ? "Tidak ada" : $d->nama_penerima }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Diterima Tanggal</td>
                                                 <td>:</td>
-                                                <td>   </td>
+                                                <td> </td>
                                                 <td>{{ $d->tgl_penyampaian }}</td>
                                             </tr>
                                         </table>
                                         <!-- <span class="text-medium">Nama Penerima :</span> {{ $d->nama_penerima == null ? "Tidak ada" : $d->nama_penerima }} <br> -->
                                         <!-- <span class="text-medium">Diterima Tanggal :</span>{{ $d->tgl_penyampaian  }} <br> -->
+                                        @endforeach
                                         @endif
-                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -101,6 +102,13 @@
     <script type='text/javascript'></script>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
     <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
+    <script>
+        $("#nop").inputmask({
+            "mask": "99-99-999-999-999-9999-9"
+        });
+    </script>
 </body>
 
 </html>
