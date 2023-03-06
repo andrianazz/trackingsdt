@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,12 +29,16 @@ class SearchController extends Controller
             return redirect('/');
         }
 
+        $year = Carbon::now()->format('Y');
 
 
-        $exist = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', '!=', 2022)->get();
-        $exist2 = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', 2022)->whereNull('status_penyampaian')->get();
-        $penyampaian = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', 2022)->where('status_penyampaian', 1)->get();
+
+        $exist = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', '!=', $year)->get();
+        $exist2 = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->whereNull('status_penyampaian')->get();
+        $penyampaian = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->where('status_penyampaian', 1)->get();
         $tracking = 0;
+
+
 
 
 
