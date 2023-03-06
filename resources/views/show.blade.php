@@ -17,7 +17,7 @@
             <div class="col-md-9">
                 <div class="card p-4 mt-3 ">
                     <div class="text-right">
-                        <button type="submit" class="mt-4 search-icon btn btn-info">
+                        <button type="submit" onclick="window.location.href='https://simpbb.pekanbaru.go.id/'" class="mt-4 search-icon btn btn-info">
                             <i class="fa fa-right-to-bracket"></i>
                         </button>
                     </div>
@@ -70,7 +70,6 @@
                                     @if($data == null) <span class="text-medium">Silahkan Hubungi SPPT ke BAPENDA Kota Pekanbaru</span> <br>
                                         @endif
 
-                                        
                                         @if($tracking == 4 && $data != null)
                                         @foreach($data as $d)
                                         <table>
@@ -87,8 +86,6 @@
                                                 <td>{{ $d->tgl_penyampaian }}</td>
                                             </tr>
                                         </table>
-                                        <!-- <span class="text-medium">Nama Penerima :</span> {{ $d->nama_penerima == null ? "Tidak ada" : $d->nama_penerima }} <br> -->
-                                        <!-- <span class="text-medium">Diterima Tanggal :</span>{{ $d->tgl_penyampaian  }} <br> -->
                                         @endforeach
                                         @endif
                                 </div>

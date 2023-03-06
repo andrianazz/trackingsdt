@@ -17,7 +17,7 @@
             <div class="col-md-9">
                 <div class="card p-4 mt-3">
                     <div class="text-right">
-                        <button type="submit" class="mt-4 search-icon btn btn-info">
+                        <button onclick="window.location.href='https://simpbb.pekanbaru.go.id/'" type="submit" class="mt-4 search-icon btn btn-info">
                             <i class="fa fa-right-to-bracket"></i>
                         </button>
                     </div>
@@ -26,7 +26,6 @@
                         <div class="search">
                             <form action="{{ route('search') }}" method="POST">
                                 @csrf
-                                <!-- <input type="text" name="search" class="search-input" placeholder="Masukkan Nomor NOP...." data-mask="00-00-000-000-000-0000-0"> -->
                                 <input autocomplete="false" id="nop" type="text" name="search" class="search-input" placeholder="Masukkan Nomor NOP...." data-mask="00-00-000-000-000-0000-0" require>
                                 <button type="submit" class="search-icon btn btn-info"> <i class="fa fa-search"></i> </button>
                             </form>
@@ -49,37 +48,6 @@
             "mask": "99-99-999-999-999-9999-9"
         });
 
-        // $(document).ready(function() {
-        //     //$('#example').DataTable();
-        //     $('#idCetakNop').click(function() {
-        //         var nopp = $('#nop').val();
-        //         var nop = nopp.split("-");
-        //         $("#idLoading").show();
-        //         $("#mdl").modal('show');
-        //         $("#idModul").html('');
-        //         $("#idDownload").html('<a href="kiosk/tagihanpbb/cekpbb_sendfile.php?nop=' + nop[0] + '-' + nop[1] + '-' + nop[2] + '-' + nop[3] + '-' + nop[4] + '-' + nop[5] + '-' + nop[6] + '" target="_blank"><button class="btn btn-success" id="" type="button"  >Dowload</button></a>');
-
-        //         $.post("cekpbb.php", {
-        //             nop: nopp
-        //         }, function(data) {
-        //             $("#idLoading").hide('slow');
-        //             $("#idModul").html(data);
-
-
-        //             //$("#mdl").modal('hide');
-        //         });
-
-
-
-        //     });
-        //     $("#idcetak").click(function() {
-        //         var nopp = $('#nop').val();
-        //         var nop = nopp.split("-");
-        //         $("#idModul").html('<embed src="kiosk/tagihanpbb/cekpbb.php?nop=' + nop[0] + '-' + nop[1] + '-' + nop[2] + '-' + nop[3] + '-' + nop[4] + '-' + nop[5] + '-' + nop[6] + '"  width="100%" height="600px" />');
-
-        //     });
-
-        // });
     </script>
 </body>
 
