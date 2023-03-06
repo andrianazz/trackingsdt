@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,6 +33,9 @@ class SearchController extends Controller
         $exist = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', '!=', $year)->get();
         $exist2 = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->whereNull('status_penyampaian')->get();
         $penyampaian = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->where('status_penyampaian', 1)->get();
+        $penyampaian2 = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->where('status_penyampaian', 1)->where(function(Builder $query){
+            $query->whereNotNull('status_wp')->orWhereNotNull('status_op');
+        })->get();
         $tracking = 0;
 
         $message = null;
@@ -39,6 +43,9 @@ class SearchController extends Controller
         if ($penyampaian->isNotEmpty()) {
             $tracking = 4;
             $data = $penyampaian;
+        }else if ($penyampaian2->isNotEmpty()) {
+            $tracking = 4;
+            $data = $penyampaian2;
         } else if ($exist2->isNotEmpty()) {
             $tracking = 3;
             $data = null;

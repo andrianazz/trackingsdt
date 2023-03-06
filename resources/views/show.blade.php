@@ -73,12 +73,15 @@
                                             @elseif($tracking==3)
                                                 <span class="text-medium">-</span> <br>
                                             @else
-                                            <span class="text-medium">Silahkan Hubungi SPPT ke BAPENDA Kota Pekanbaru</span> <br>
+                                            <span class="text-medium">Silahkan Hubungi SPPT BAPENDA Kota Pekanbaru</span> <br>
                                             @endif
                                         @endif
 
                                         @if($tracking == 4 && $data != null)
                                         @foreach($data as $d)
+                                        @if($d->status_wp || $d->status_op)
+                                            <span class="text-medium">Silahkan Ambil ke SPPT BAPENDA Kota Pekanbaru</span> <br>
+                                        @else
                                         <table>
                                             <tr>
                                                 <td>Nama Penerima</td>
@@ -93,6 +96,7 @@
                                                 <td>{{ $d->tgl_penyampaian }}</td>
                                             </tr>
                                         </table>
+                                        @endif
                                         @endforeach
                                         @endif
                                 </div>
