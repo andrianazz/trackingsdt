@@ -70,6 +70,8 @@
                                         @if($data == null)
                                             @if ($message) 
                                                 <span class="text-danger">{{$message}}</span> <br>
+                                            @elseif($tracking==3)
+                                                <span class="text-medium">-</span> <br>
                                             @else
                                             <span class="text-medium">Silahkan Hubungi SPPT ke BAPENDA Kota Pekanbaru</span> <br>
                                             @endif

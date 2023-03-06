@@ -40,7 +40,7 @@ class SearchController extends Controller
             $tracking = 4;
             $data = $penyampaian;
         } else if ($exist2->isNotEmpty()) {
-            $tracking = 4;
+            $tracking = 3;
             $data = null;
         } else if ($exist->isNotEmpty()) {
             $tracking = 1;
