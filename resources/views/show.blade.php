@@ -67,7 +67,12 @@
                             <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between mt-3 py-3 px-2" style="background-color: #374250">
                                 <div class="col w-100 text-light py-1 px-2">
                                     <span class="text-medium"><b><u>KETERANGAN</u></b></span> <br>
-                                    @if($data == null) <span class="text-medium">Silahkan Hubungi SPPT ke BAPENDA Kota Pekanbaru</span> <br>
+                                        @if($data == null)
+                                            @if ($message) 
+                                                <span class="text-danger">{{$message}}</span> <br>
+                                            @else
+                                            <span class="text-medium">Silahkan Hubungi SPPT ke BAPENDA Kota Pekanbaru</span> <br>
+                                            @endif
                                         @endif
 
                                         @if($tracking == 4 && $data != null)

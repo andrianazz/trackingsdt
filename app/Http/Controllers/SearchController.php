@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
-    //
     public function index()
     {
         return view('index');
@@ -17,8 +15,6 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        // $test = DB::table('DT_SDT')->get();
-        // dd($test);
 
         $nopExplode = explode("-", $request->search);
         $nop = implode("", $nopExplode);
@@ -38,9 +34,7 @@ class SearchController extends Controller
         $penyampaian = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->where('status_penyampaian', 1)->get();
         $tracking = 0;
 
-
-
-
+        $message = null;
 
         if ($penyampaian->isNotEmpty()) {
             $tracking = 4;
@@ -54,8 +48,9 @@ class SearchController extends Controller
         } else {
             $tracking = 1;
             $data = null;
+            $message = "Data tidak ditemukan/NOP salah. Mohon periksa kembali NOP yang anda inputkan.";
         }
 
-        return view('show', compact(['data', 'tracking', 'nop']));
+        return view('show', compact(['data', 'tracking', 'nop', 'message']));
     }
 }
