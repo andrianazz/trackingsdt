@@ -56,8 +56,6 @@ class SearchController extends Controller
             $data = null;
         }
 
-
-
         return view('show', compact(['data', 'tracking', 'nop']));
     }
 }
