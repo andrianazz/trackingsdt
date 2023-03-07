@@ -24,7 +24,7 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $request->validate([
-          'search' => ['required', 'numeric'],
+          'search' => ['required'],
         ]);
 
         $nopExplode = explode("-", $request->search);
