@@ -6,21 +6,29 @@ use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class SearchController extends Controller
 {
     public function index()
     {
-        return view('index');
+        return Inertia::render('Search/Index', [
+            'search_url' => route('search'),
+        ]);
+    }
+
+    public function toWeb(){
+        return Inertia::location('https://simpbb.pekanbaru.go.id');
     }
 
     public function search(Request $request)
     {
+        $request->validate([
+          'search' => ['required', 'numeric'],
+        ]);
 
         $nopExplode = explode("-", $request->search);
         $nop = implode("", $nopExplode);
-
-
 
         if ($request->search == null) {
             return redirect('/');
@@ -28,36 +36,41 @@ class SearchController extends Controller
 
         $year = Carbon::now()->format('Y');
 
-
-
-        $exist = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', '!=', $year)->get();
-        $exist2 = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->whereNull('status_penyampaian')->get();
-        $penyampaian = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->where('status_penyampaian', 1)->get();
-        $penyampaian2 = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->where('status_penyampaian', 1)->where(function(Builder $query){
+        $isNotCurrentYear = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', '!=', $year)->get();
+        $isStatusExist = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->whereNull('status_penyampaian')->get();
+        $isTaken = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->where('status_penyampaian', 1)->where(function (Builder $query) {
             $query->whereNotNull('status_wp')->orWhereNotNull('status_op');
         })->get();
-        $tracking = 0;
+        $isDelivered = DB::table('DT_SDT')->where('nop', $nop)->where('tahun', $year)->where('status_penyampaian', 1)->where(function (Builder $query) {
+            $query->whereNull('status_wp')->whereNull('status_op');
+        })->get();
+        $status = 0;
 
         $message = null;
 
-        if ($penyampaian->isNotEmpty()) {
-            $tracking = 4;
-            $data = $penyampaian;
-        }else if ($penyampaian2->isNotEmpty()) {
-            $tracking = 4;
-            $data = $penyampaian2;
-        } else if ($exist2->isNotEmpty()) {
-            $tracking = 3;
+        if ($isTaken->isNotEmpty()) {
+            $status = 4;
+            $data = $isTaken;
+        } else if ($isDelivered->isNotEmpty()) {
+            $status = 4;
+            $data = $isDelivered;
+        } else if ($isStatusExist->isNotEmpty()) {
+            $status = 3;
             $data = null;
-        } else if ($exist->isNotEmpty()) {
-            $tracking = 1;
+        } else if ($isNotCurrentYear->isNotEmpty()) {
+            $status = 1;
             $data = null;
         } else {
-            $tracking = 1;
+            $status = 1;
             $data = null;
             $message = "Data tidak ditemukan/NOP salah. Mohon periksa kembali NOP yang anda inputkan.";
         }
 
-        return view('show', compact(['data', 'tracking', 'nop', 'message']));
+        return Inertia::render('Search/Index', [
+            'data' => $data,
+            'status' => $status,
+            'nop' => $nop,
+            'message' => $message
+        ]);
     }
 }
