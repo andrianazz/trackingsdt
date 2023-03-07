@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, computed, watch, watchEffect } from 'vue'
-import { router, usePage, Head, Link } from '@inertiajs/vue3'
+import { router, usePage, Link } from '@inertiajs/vue3'
 import Show from './Show.vue'
 import Layout from '../../Layouts/App.vue'
 import { vMaska } from 'maska'
