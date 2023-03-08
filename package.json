@@ -20,6 +20,8 @@
         "@fortawesome/vue-fontawesome": "^3.0.3",
         "@inertiajs/vue3": "^1.0.2",
         "@vitejs/plugin-vue": "^4.0.0",
+        "inputmask": "^5.0.7",
+        "jquery": "^3.6.3",
         "maska": "^2.1.7",
         "vue": "^3.2.36"
     }

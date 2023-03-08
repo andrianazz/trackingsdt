@@ -2,12 +2,17 @@
 import { reactive, computed, watch, watchEffect } from 'vue'
 import { router, usePage, Link } from '@inertiajs/vue3'
 
-import '../../jquery.min.js'
-import '../../jquery.inputmask.min.js'
+import $ from 'jquery'
+import Inputmask from 'inputmask'
+
 // import { vMaska } from 'maska'
 
 import Show from './Show.vue'
 import Layout from '../../Layouts/App.vue'
+
+$(document).ready(function(){
+  Inputmask().mask(document.querySelectorAll("input"));
+});
 
 // const options = reactive({
 //   mask: "##-##-###-###-###-####-#",
@@ -28,14 +33,14 @@ const form = reactive({
 })
 
 watchEffect(() => {
-    $(()=>{
-        $('#search').inputmask({
-            mask: "##-##-###-###-###-####-#",
-        })
-        $('#search').on('input', function() {
-            form.search = $(this).val()
-        })
-    })
+    // $(()=>{
+    //     $('#search').inputmask({
+    //         mask: "##-##-###-###-###-####-#",
+    //     })
+    //     $('#search').on('input', function() {
+    //         form.search = $(this).val()
+    //     })
+    // })
 })
 
 function submit() {
@@ -64,7 +69,7 @@ function submit() {
                         <div class="search">
                             <form @submit.prevent="submit">
                                 <!-- <input v-maska:[options] autocomplete="false" id="name" type="text" v-model="form.search" name="search" class="search-input" placeholder="Masukkan Nomor NOP..." require> -->
-                                <input  autocomplete="false" id="search" type="text" v-model="form.search" name="search" class="search-input" placeholder="Masukkan Nomor NOP..." require>
+                                <input data-inputmask="'mask': '99-99-999-999-999-9999-9'" autocomplete="false" id="search" type="text" v-model="form.search" name="search" class="search-input" placeholder="Masukkan Nomor NOP..." require>
 
                                 <button type="submit" class="search-icon btn btn-info">
                                     <font-awesome-icon icon="search" />
