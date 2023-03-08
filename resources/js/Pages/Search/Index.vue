@@ -1,33 +1,18 @@
 <script setup>
 import { reactive, computed, watch, watchEffect } from 'vue'
 import { router, usePage, Link } from '@inertiajs/vue3'
+
+import '../../jquery.min.js'
+import '../../jquery.inputmask.min.js'
+// import { vMaska } from 'maska'
+
 import Show from './Show.vue'
 import Layout from '../../Layouts/App.vue'
-import { vMaska } from 'maska'
 
-const options = reactive({
-  mask: "##-##-###-###-###-####-#",
-  eager: true
-})
-
-let format = "__-__-___-___-___-____-_"
-
-let search = reactive({
-  format: null,
-})
-
-function formatInputValue(value) {
-    format.split('').forEach((char, index) =>{
-        if (char === '_') {
-            if (value[index] === undefined) {
-                format = format.replace(char, '_')
-            } else {
-                format = format.replace(char, value[index])
-            }
-        }
-    })
-    search.format = format
-}
+// const options = reactive({
+//   mask: "##-##-###-###-###-####-#",
+//   eager: true
+// })
 
 let search_url =  usePage().props.search_url
 
@@ -42,6 +27,17 @@ const form = reactive({
   search: null,
 })
 
+watchEffect(() => {
+    $(()=>{
+        $('#search').inputmask({
+            mask: "##-##-###-###-###-####-#",
+        })
+        $('#search').on('input', function() {
+            form.search = $(this).val()
+        })
+    })
+})
+
 function submit() {
     router.post(
         search_url,
@@ -50,13 +46,6 @@ function submit() {
         },
     )
 }
-
-watchEffect(() => {
-  if (form.search) {
-    formatInputValue(form.search)
-  }
-})
-
 </script>
 
 <template >
@@ -74,7 +63,8 @@ watchEffect(() => {
                     <div class="d-flex justify-content-center">
                         <div class="search">
                             <form @submit.prevent="submit">
-                                <input v-maska:[options] autocomplete="false" id="name" type="text" v-model="form.search" name="search" class="search-input" placeholder="Masukkan Nomor NOP..." require>
+                                <!-- <input v-maska:[options] autocomplete="false" id="name" type="text" v-model="form.search" name="search" class="search-input" placeholder="Masukkan Nomor NOP..." require> -->
+                                <input  autocomplete="false" id="search" type="text" v-model="form.search" name="search" class="search-input" placeholder="Masukkan Nomor NOP..." require>
 
                                 <button type="submit" class="search-icon btn btn-info">
                                     <font-awesome-icon icon="search" />
